@@ -1,0 +1,19 @@
+<resources>
+    <!-- Global -->
+    <string name="back_content_description">Back</string>
+    <string name="not_applicable_mean">N/A</string>
+
+    <!-- Random Anime List Screen -->
+    <string name="random_anime_list_title">Random Anime List in %1$s</string>
+
+    <!-- Anime Details Screen -->
+    <string name="anime_details_title">Details</string>
+    <string name="anime_details_score_label">Score</string>
+    <string name="anime_details_rank_label">Rank</string>
+    <string name="anime_details_no_rank_value">Rank</string>
+    <string name="anime_details_popularity_label">Popularity</string>
+    <string name="anime_details_members_label">Members</string>
+    <string name="anime_details_favorites_label">Favorites</string>
+    <string name="anime_details_episode_info">%1$s ep, %2$s</string>
+    <string name="anime_details_ranking_value"># %1$s</string>
+</resources>
