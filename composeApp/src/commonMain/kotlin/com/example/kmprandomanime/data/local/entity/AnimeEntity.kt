@@ -23,5 +23,5 @@ data class AnimeEntity(
     val duration: String,
     val summary: String,
     val airingPeriod: String,
-    val createdAt: Long = Clock.System.now().toEpochMilliseconds()
+    val createdAt: Long = Clock.System.now().toEpochMilliseconds(),
 )

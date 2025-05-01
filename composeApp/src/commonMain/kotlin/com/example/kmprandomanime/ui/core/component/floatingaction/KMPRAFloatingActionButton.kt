@@ -19,4 +19,3 @@ internal fun KMPRAFloatingActionButton(
         Icon(icon, contentDescription = icon.name)
     }
 }
-

@@ -15,7 +15,7 @@ private const val TIMEOUT_MILLIS = 60000L
 
 internal class HttpClientProvider(
     private val apiBaseUrl: ApiBaseUrl,
-    private val clientEngine: HttpClientEngine
+    private val clientEngine: HttpClientEngine,
 ) {
     fun provide(): HttpClient {
         return HttpClient(clientEngine) {
@@ -37,7 +37,7 @@ internal class HttpClientProvider(
                         prettyPrint = true
                         isLenient = true
                         ignoreUnknownKeys = true
-                    }
+                    },
                 )
             }
         }

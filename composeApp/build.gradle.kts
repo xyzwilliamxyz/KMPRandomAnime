@@ -112,14 +112,16 @@ spotless {
         target("**/*.kt")
         targetExclude("**/build/**/*.kt")
 
-        ktlint("1.0.0").editorConfigOverride(
-            mapOf(
-                "indent_size" to "4",
-                "continuation_indent_size" to "4",
-                "ktlint_standard_trailing-comma" to "true",
-                "ktlint_standard_trailing-comma-on-call-site" to "true"
+        ktlint("1.0.0")
+            .setEditorConfigPath("$projectDir/config/.editorconfig")
+            .editorConfigOverride(
+                mapOf(
+                    "indent_size" to "4",
+                    "continuation_indent_size" to "4",
+                    "ktlint_standard_trailing-comma" to "true",
+                    "ktlint_standard_trailing-comma-on-call-site" to "true"
+                )
             )
-        )
 
         trimTrailingWhitespace()
         endWithNewline()

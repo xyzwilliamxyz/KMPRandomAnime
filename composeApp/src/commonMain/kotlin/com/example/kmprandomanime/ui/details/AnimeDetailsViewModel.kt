@@ -3,16 +3,16 @@ package com.example.kmprandomanime.ui.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.kmprandomanime.ScreenRoute
+import com.example.kmprandomanime.core.CoroutineDispatcherProvider
+import com.example.kmprandomanime.core.StringProvider
+import com.example.kmprandomanime.domain.interactor.GetAnimeByIdInteractor
+import com.example.kmprandomanime.domain.model.AnimeEntry
 import kmprandomanime.composeapp.generated.resources.Res
 import kmprandomanime.composeapp.generated.resources.anime_details_title
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.example.kmprandomanime.ScreenRoute
-import com.example.kmprandomanime.core.CoroutineDispatcherProvider
-import com.example.kmprandomanime.core.StringProvider
-import com.example.kmprandomanime.domain.model.AnimeEntry
-import com.example.kmprandomanime.domain.interactor.GetAnimeByIdInteractor
 
 internal class AnimeDetailsViewModel(
     private val stringProvider: StringProvider,
@@ -49,6 +49,5 @@ internal class AnimeDetailsViewModel(
 internal data class AnimeDetailsState(
     val screenTitle: String = "",
     val isLoading: Boolean = false,
-    val animeEntry: AnimeEntry? = null
+    val animeEntry: AnimeEntry? = null,
 )
-

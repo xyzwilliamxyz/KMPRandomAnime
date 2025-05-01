@@ -1,11 +1,11 @@
 package com.example.kmprandomanime
 
 import android.app.Application
-import com.example.kmprandomanime.di.platformModule
 import com.example.kmprandomanime.di.appModule
 import com.example.kmprandomanime.di.dataModule
 import com.example.kmprandomanime.di.interactorModule
 import com.example.kmprandomanime.di.networkModule
+import com.example.kmprandomanime.di.platformModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.GlobalContext.startKoin
@@ -20,7 +20,7 @@ class KMPRAApplication : Application(), KoinComponent {
                 dataModule,
                 networkModule,
                 interactorModule,
-                platformModule()
+                platformModule(),
             )
         }
     }

@@ -6,10 +6,9 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.example.kmprandomanime.data.local.entity.AnimeEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import com.example.kmprandomanime.data.local.db.AnimeDao
-import com.example.kmprandomanime.data.local.entity.AnimeEntity
 
 @Database(entities = [AnimeEntity::class], version = 1)
 @TypeConverters(GenreTypeConverter::class)
@@ -25,7 +24,7 @@ expect object AppDatabaseConstructor : RoomDatabaseConstructor<AppDatabase> {
 }
 
 fun getRoomDatabase(
-    builder: RoomDatabase.Builder<AppDatabase>
+    builder: RoomDatabase.Builder<AppDatabase>,
 ): AppDatabase {
     return builder
         .addMigrations()
@@ -34,4 +33,3 @@ fun getRoomDatabase(
         .setQueryCoroutineContext(Dispatchers.IO)
         .build()
 }
-

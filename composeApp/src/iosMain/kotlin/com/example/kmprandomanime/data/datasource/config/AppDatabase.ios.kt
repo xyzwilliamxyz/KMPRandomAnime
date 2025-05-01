@@ -2,8 +2,8 @@ package com.example.kmprandomanime.data.datasource.config
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlinx.cinterop.ExperimentalForeignApi
 import com.example.kmprandomanime.data.local.db.AppDatabase
+import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
