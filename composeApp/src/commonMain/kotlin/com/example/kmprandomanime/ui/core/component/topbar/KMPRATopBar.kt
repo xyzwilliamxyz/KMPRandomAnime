@@ -12,9 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import com.example.kmprandomanime.ui.core.theme.KMPRATheme
 import kmprandomanime.composeapp.generated.resources.Res
 import kmprandomanime.composeapp.generated.resources.back_content_description
-import com.example.kmprandomanime.ui.core.theme.KMPRATheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -23,12 +23,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 internal fun KMPRATopBar(
     title: String,
     actions: @Composable RowScope.() -> Unit = {},
-    onBackClicked: (() -> Unit)? = null
+    onBackClick: (() -> Unit)? = null,
 ) {
     TopAppBar(
         navigationIcon = {
-            if (onBackClicked != null) {
-                IconButton(onClick = onBackClicked) {
+            if (onBackClick != null) {
+                IconButton(onClick = onBackClick) {
                     Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(Res.string.back_content_description))
                 }
             }
@@ -39,23 +39,23 @@ internal fun KMPRATopBar(
             navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
             containerColor = MaterialTheme.colorScheme.primary,
             titleContentColor = MaterialTheme.colorScheme.onPrimary,
-            actionIconContentColor = MaterialTheme.colorScheme.onPrimary
-        )
+            actionIconContentColor = MaterialTheme.colorScheme.onPrimary,
+        ),
     )
 }
 
 @Preview
 @Composable
-fun KMPRATopBar_Preview() {
+private fun KMPRATopBar_Preview() {
     KMPRATheme {
         KMPRATopBar(
-            onBackClicked = {},
+            onBackClick = {},
             title = "Top Bar Title",
             actions = {
                 IconButton(onClick = { /* Handle search */ }) {
                     Icon(Icons.Default.Search, contentDescription = "Search")
                 }
-            }
+            },
         )
     }
 }

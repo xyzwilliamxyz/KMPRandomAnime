@@ -20,18 +20,18 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -68,12 +68,21 @@ kotlin {
 
 android {
     namespace = "com.example.kmprandomanime"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
 
     defaultConfig {
         applicationId = "com.example.kmprandomanime"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.android.targetSdk
+                .get()
+                .toInt()
         versionCode = 1
         versionName = "1.0"
     }
@@ -119,8 +128,12 @@ spotless {
                     "indent_size" to "4",
                     "continuation_indent_size" to "4",
                     "ktlint_standard_trailing-comma" to "true",
-                    "ktlint_standard_trailing-comma-on-call-site" to "true"
-                )
+                    "ktlint_standard_trailing-comma-on-call-site" to "true",
+                ),
+            ).customRuleSets(
+                listOf(
+                    "io.nlopez.compose.rules:ktlint:0.4.16",
+                ),
             )
 
         trimTrailingWhitespace()

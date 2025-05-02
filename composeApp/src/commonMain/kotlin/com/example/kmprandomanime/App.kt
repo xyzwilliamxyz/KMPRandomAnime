@@ -20,17 +20,17 @@ fun App() {
         NavHost(navController, startDestination = ScreenRoute.List.route) {
             composable(ScreenRoute.List.route) {
                 RandomAnimeListScreen(
-                    onAnimeClicked = { animeId ->
+                    onAnimeClick = { animeId ->
                         navController.navigate(ScreenRoute.Details.routeWithArgs(animeId))
-                    }
+                    },
                 )
             }
             composable(
                 ScreenRoute.Details.route,
-                arguments = listOf(navArgument(ScreenRoute.Details.ARG_ANIME_ID) { type = NavType.IntType })
+                arguments = listOf(navArgument(ScreenRoute.Details.ARG_ANIME_ID) { type = NavType.IntType }),
             ) { backStackEntry ->
                 AnimeDetailsScreen(
-                    onBackClicked = { navController.popBackStack() }
+                    onBackClick = { navController.popBackStack() },
                 )
             }
         }

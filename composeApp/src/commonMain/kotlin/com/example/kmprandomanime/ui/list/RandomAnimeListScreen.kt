@@ -1,6 +1,5 @@
 package com.example.kmprandomanime.ui.list
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,13 +13,13 @@ import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.kmprandomanime.preview.ComposePreviewData
 import com.example.kmprandomanime.ui.core.component.animegriditem.AnimeGridItem
@@ -37,25 +36,27 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 internal fun RandomAnimeListScreen(
     viewModel: RandomAnimeListViewModel = koinViewModel(),
-    onAnimeClicked: (Int) -> Unit,
+    onAnimeClick: (Int) -> Unit,
 ) {
     val state = viewModel.state.collectAsState().value
     val actions = viewModel.actions
     val navigation = viewModel.navigation
 
-    HandleNavigation(navigation, onAnimeClicked)
+    HandleNavigation(navigation, onAnimeClick)
     RandomAnimeListScreenInternal(state, actions)
 }
 
 @Composable
 private fun HandleNavigation(
     navigationFlow: Flow<RandomAnimeListNavigation>,
-    onAnimeClicked: (Int) -> Unit
+    onAnimeClick: (Int) -> Unit,
 ) {
+    val currentOnAnimeClick by rememberUpdatedState(onAnimeClick)
+
     LaunchedEffect(Unit) {
         navigationFlow.collectLatest {
             when (it) {
-                is RandomAnimeListNavigation.ToAnimeDetails -> onAnimeClicked(it.animeId)
+                is RandomAnimeListNavigation.ToAnimeDetails -> currentOnAnimeClick(it.animeId)
                 else -> {}
             }
         }
@@ -70,7 +71,7 @@ private fun RandomAnimeTopBar(title: String, onClear: () -> Unit) {
             IconButton(onClick = onClear) {
                 Icon(Icons.Outlined.Delete, contentDescription = Icons.Outlined.Clear.name)
             }
-        }
+        },
     )
 }
 
@@ -78,18 +79,18 @@ private fun RandomAnimeTopBar(title: String, onClear: () -> Unit) {
 private fun RandomAnimeFAB(onGenerate: () -> Unit) {
     KMPRAFloatingActionButton(
         icon = Icons.Shuffle,
-        onClick = onGenerate
+        onClick = onGenerate,
     )
 }
 
 @Composable
 private fun RandomAnimeListScreenInternal(
     state: RandomAnimeListState,
-    actions: RandomAnimeListActions
+    actions: RandomAnimeListActions,
 ) {
     Scaffold(
         topBar = { RandomAnimeTopBar(state.screenTitle, actions.onClearAnimeList) },
-        floatingActionButton = { RandomAnimeFAB(actions.onGenerateRandomAnime) }
+        floatingActionButton = { RandomAnimeFAB(actions.onGenerateRandomAnime) },
     ) { innerPadding ->
         Box(Modifier.padding(innerPadding)) {
             LazyVerticalGrid(
@@ -99,8 +100,8 @@ private fun RandomAnimeListScreenInternal(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(
                     horizontal = 8.dp,
-                    vertical = 8.dp
-                )
+                    vertical = 8.dp,
+                ),
             ) {
                 items(state.animeList.size) {
                     AnimeGridItem(
@@ -130,7 +131,7 @@ internal fun RandomAnimeListScreen_Preview() {
     val state = RandomAnimeListState(
         screenTitle = "Random Anime List",
         animeList = animeList,
-        isLoading = false
+        isLoading = false,
     )
 
     KMPRATheme {
@@ -139,7 +140,7 @@ internal fun RandomAnimeListScreen_Preview() {
         ) {
             RandomAnimeListScreenInternal(
                 state = state,
-                actions = RandomAnimeListActions()
+                actions = RandomAnimeListActions(),
             )
         }
     }

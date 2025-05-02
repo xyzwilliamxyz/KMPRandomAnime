@@ -1,6 +1,5 @@
 package com.example.kmprandomanime.ui.details
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,7 +23,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -47,34 +45,33 @@ import kmprandomanime.composeapp.generated.resources.anime_details_popularity_la
 import kmprandomanime.composeapp.generated.resources.anime_details_rank_label
 import kmprandomanime.composeapp.generated.resources.anime_details_ranking_value
 import kmprandomanime.composeapp.generated.resources.anime_details_score_label
-import kmprandomanime.composeapp.generated.resources.img_debug
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 internal fun AnimeDetailsScreen(
     viewModel: AnimeDetailsViewModel = koinViewModel(),
-    onBackClicked: () -> Unit,
+    onBackClick: () -> Unit,
 ) {
     val state = viewModel.state.collectAsState().value
 
-    AnimeDetailsScreenInternal(state, onBackClicked)
+    AnimeDetailsScreenInternal(state, onBackClick)
 }
 
 @Composable
-private fun AnimeDetailsTopBar(title: String, onBackClicked: () -> Unit) {
+private fun AnimeDetailsTopBar(title: String, onBackClick: () -> Unit) {
     KMPRATopBar(
-        onBackClicked = onBackClicked,
-        title = title
+        onBackClick = onBackClick,
+        title = title,
     )
 }
 
 @Composable
-private fun AnimeDetailsScreenInternal(state: AnimeDetailsState, onBackClicked: () -> Unit) {
+private fun AnimeDetailsScreenInternal(state: AnimeDetailsState, onBackClick: () -> Unit) {
     Scaffold(
         topBar = {
-            AnimeDetailsTopBar(title = state.screenTitle, onBackClicked = onBackClicked)
-        }
+            AnimeDetailsTopBar(title = state.screenTitle, onBackClick = onBackClick)
+        },
     ) { innerPadding ->
         Box(Modifier.padding(innerPadding)) {
             state.animeEntry?.let {
@@ -86,7 +83,6 @@ private fun AnimeDetailsScreenInternal(state: AnimeDetailsState, onBackClicked: 
             }
         }
     }
-
 }
 
 @Composable
@@ -95,7 +91,7 @@ private fun Content(anime: AnimeEntry, modifier: Modifier = Modifier) {
         modifier = modifier
             .padding(horizontal = 16.dp)
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
     ) {
         Title(anime.title)
         Spacer(Modifier.height(8.dp))
@@ -134,7 +130,7 @@ private fun AnimeImage(imageUrl: String) {
         placeholder = debugPlaceholder(),
         error = debugPlaceholder(),
         contentScale = ContentScale.FillBounds,
-        contentDescription = null
+        contentDescription = null,
     )
 }
 
@@ -142,7 +138,7 @@ private fun AnimeImage(imageUrl: String) {
 private fun Rankings(anime: AnimeEntry) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.End
+        horizontalAlignment = Alignment.End,
     ) {
         Text(
             text = stringResource(Res.string.anime_details_score_label),
@@ -218,7 +214,7 @@ private fun MediaInfo(anime: AnimeEntry) {
     Row(
         modifier = Modifier
             .padding(top = 16.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         Text(
             text = anime.airingPeriod,
@@ -250,7 +246,7 @@ private fun Summary(text: String) {
         color = MaterialTheme.colorScheme.onSurface,
         style = MaterialTheme.typography.bodySmall,
         overflow = TextOverflow.Clip,
-        textAlign = TextAlign.Justify
+        textAlign = TextAlign.Justify,
     )
 }
 
@@ -260,7 +256,7 @@ internal fun AnimeDetailsScreen_Preview() {
     val state = AnimeDetailsState(
         screenTitle = "Anime Details",
         animeEntry = animeEntry,
-        isLoading = false
+        isLoading = false,
     )
 
     KMPRATheme {
@@ -269,7 +265,7 @@ internal fun AnimeDetailsScreen_Preview() {
         ) {
             AnimeDetailsScreenInternal(
                 state = state,
-                onBackClicked = {}
+                onBackClick = {},
             )
         }
     }

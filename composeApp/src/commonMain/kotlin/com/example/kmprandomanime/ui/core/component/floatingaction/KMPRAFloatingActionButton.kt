@@ -9,12 +9,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 @Composable
 internal fun KMPRAFloatingActionButton(
     icon: ImageVector,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     FloatingActionButton(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
-        onClick = onClick
+        onClick = onClick,
     ) {
         Icon(icon, contentDescription = icon.name)
     }

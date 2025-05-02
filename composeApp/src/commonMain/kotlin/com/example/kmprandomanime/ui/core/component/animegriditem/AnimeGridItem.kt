@@ -50,7 +50,7 @@ internal fun AnimeGridItem(
         modifier
             .fillMaxWidth()
             .height(202.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
     ) {
         Column {
             AsyncImage(
@@ -83,7 +83,7 @@ internal fun AnimeGridItem(
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 4.dp)
+                    .padding(horizontal = 4.dp),
             ) {
                 Icon(
                     modifier = Modifier.size(12.dp),
@@ -118,8 +118,9 @@ private fun AnimeGridItem_Preview() {
     val entry = ComposePreviewData.animeEntry()
 
     KMPRATheme {
-        Scaffold(Modifier
-            .fillMaxSize()
+        Scaffold(
+            Modifier
+                .fillMaxSize(),
         ) { innerPadding ->
             LazyVerticalGrid(
                 modifier = Modifier
@@ -127,7 +128,7 @@ private fun AnimeGridItem_Preview() {
                     .padding(8.dp),
                 columns = GridCells.Adaptive(minSize = 96.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 items(6) { entry }
             }
