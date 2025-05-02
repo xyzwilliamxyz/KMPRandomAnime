@@ -145,3 +145,13 @@ spotless {
         ktlint()
     }
 }
+
+// By default paparazzi outputs files to "src/test/snapshots", change it to the recommended CMP one
+afterEvaluate {
+    tasks.withType(Test::class).configureEach {
+        systemProperty(
+            "paparazzi.snapshot.dir",
+            project.layout.projectDirectory.dir("src/androidUnitTest/snapshots").toString()
+        )
+    }
+}
