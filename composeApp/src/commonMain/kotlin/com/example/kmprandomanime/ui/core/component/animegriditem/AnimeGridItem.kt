@@ -1,7 +1,6 @@
 package com.example.kmprandomanime.ui.core.component.animegriditem
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,28 +15,28 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import kmprandomanime.composeapp.generated.resources.Res
-import kmprandomanime.composeapp.generated.resources.ic_star
-import kmprandomanime.composeapp.generated.resources.not_applicable_mean
 import com.example.kmprandomanime.domain.model.AnimeEntry
 import com.example.kmprandomanime.preview.ComposePreviewData
 import com.example.kmprandomanime.ui.core.extensions.debugPlaceholder
 import com.example.kmprandomanime.ui.core.theme.Dimension
 import com.example.kmprandomanime.ui.core.theme.KMPRATheme
-import org.jetbrains.compose.resources.painterResource
+import com.example.kmprandomanime.ui.core.theme.icon.Star
+import kmprandomanime.composeapp.generated.resources.Res
+import kmprandomanime.composeapp.generated.resources.not_applicable_mean
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -86,11 +85,11 @@ internal fun AnimeGridItem(
                     .fillMaxWidth()
                     .padding(horizontal = 4.dp)
             ) {
-                Image(
-                    modifier = Modifier.size(14.dp),
-                    painter = painterResource(Res.drawable.ic_star),
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
-                    contentDescription = null
+                Icon(
+                    modifier = Modifier.size(12.dp),
+                    imageVector = Icons.Star,
+                    contentDescription = Icons.Star.name,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Text(
                     text = animeEntry.score.ifBlank { stringResource(Res.string.not_applicable_mean) },

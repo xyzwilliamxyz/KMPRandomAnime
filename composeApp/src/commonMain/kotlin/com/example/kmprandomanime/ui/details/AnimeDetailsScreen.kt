@@ -1,6 +1,6 @@
 package com.example.kmprandomanime.ui.details
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -22,13 +24,21 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.example.kmprandomanime.domain.model.AnimeEntry
+import com.example.kmprandomanime.preview.ComposePreviewData
+import com.example.kmprandomanime.ui.core.component.loading.LoadingIndicator
+import com.example.kmprandomanime.ui.core.component.topbar.KMPRATopBar
+import com.example.kmprandomanime.ui.core.extensions.debugPlaceholder
+import com.example.kmprandomanime.ui.core.theme.Dimension
+import com.example.kmprandomanime.ui.core.theme.KMPRATheme
+import com.example.kmprandomanime.ui.core.theme.icon.Star
 import kmprandomanime.composeapp.generated.resources.Res
 import kmprandomanime.composeapp.generated.resources.anime_details_episode_info
 import kmprandomanime.composeapp.generated.resources.anime_details_favorites_label
@@ -37,15 +47,7 @@ import kmprandomanime.composeapp.generated.resources.anime_details_popularity_la
 import kmprandomanime.composeapp.generated.resources.anime_details_rank_label
 import kmprandomanime.composeapp.generated.resources.anime_details_ranking_value
 import kmprandomanime.composeapp.generated.resources.anime_details_score_label
-import kmprandomanime.composeapp.generated.resources.ic_star
 import kmprandomanime.composeapp.generated.resources.img_debug
-import com.example.kmprandomanime.domain.model.AnimeEntry
-import com.example.kmprandomanime.preview.ComposePreviewData
-import com.example.kmprandomanime.ui.core.component.loading.LoadingIndicator
-import com.example.kmprandomanime.ui.core.component.topbar.KMPRATopBar
-import com.example.kmprandomanime.ui.core.extensions.debugPlaceholder
-import com.example.kmprandomanime.ui.core.theme.Dimension
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -56,21 +58,7 @@ internal fun AnimeDetailsScreen(
 ) {
     val state = viewModel.state.collectAsState().value
 
-    Scaffold(
-        topBar = {
-            AnimeDetailsTopBar(title = state.screenTitle, onBackClicked = onBackClicked)
-        }
-    ) { innerPadding ->
-        Box(Modifier.padding(innerPadding)) {
-            state.animeEntry?.let {
-                AnimeDetailsScreenInternal(it)
-            }
-
-            if (state.isLoading) {
-                LoadingIndicator()
-            }
-        }
-    }
+    AnimeDetailsScreenInternal(state, onBackClicked)
 }
 
 @Composable
@@ -82,7 +70,27 @@ private fun AnimeDetailsTopBar(title: String, onBackClicked: () -> Unit) {
 }
 
 @Composable
-private fun AnimeDetailsScreenInternal(anime: AnimeEntry, modifier: Modifier = Modifier) {
+private fun AnimeDetailsScreenInternal(state: AnimeDetailsState, onBackClicked: () -> Unit) {
+    Scaffold(
+        topBar = {
+            AnimeDetailsTopBar(title = state.screenTitle, onBackClicked = onBackClicked)
+        }
+    ) { innerPadding ->
+        Box(Modifier.padding(innerPadding)) {
+            state.animeEntry?.let {
+                Content(it)
+            }
+
+            if (state.isLoading) {
+                LoadingIndicator()
+            }
+        }
+    }
+
+}
+
+@Composable
+private fun Content(anime: AnimeEntry, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp)
@@ -123,7 +131,8 @@ private fun AnimeImage(imageUrl: String) {
             .height(221.dp)
             .clip(RoundedCornerShape(Dimension.MATERIAL_BORDER)),
         model = imageUrl,
-        placeholder = debugPlaceholder(debugPreview = Res.drawable.img_debug),
+        placeholder = debugPlaceholder(),
+        error = debugPlaceholder(),
         contentScale = ContentScale.FillBounds,
         contentDescription = null
     )
@@ -141,11 +150,11 @@ private fun Rankings(anime: AnimeEntry) {
             style = MaterialTheme.typography.bodySmall,
         )
         Row {
-            Image(
-                modifier = Modifier.size(15.dp),
-                painter = painterResource(Res.drawable.ic_star),
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant),
-                contentDescription = null
+            Icon(
+                modifier = Modifier.size(13.dp),
+                imageVector = Icons.Star,
+                contentDescription = Icons.Star.name,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Text(
                 text = anime.score,
@@ -246,8 +255,22 @@ private fun Summary(text: String) {
 }
 
 @Composable
-private fun AnimeDetailsScreen_Preview() {
+internal fun AnimeDetailsScreen_Preview() {
     val animeEntry = ComposePreviewData.animeEntry()
+    val state = AnimeDetailsState(
+        screenTitle = "Anime Details",
+        animeEntry = animeEntry,
+        isLoading = false
+    )
 
-    AnimeDetailsScreenInternal(animeEntry)
+    KMPRATheme {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            AnimeDetailsScreenInternal(
+                state = state,
+                onBackClicked = {}
+            )
+        }
+    }
 }

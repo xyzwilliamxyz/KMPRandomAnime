@@ -1,8 +1,11 @@
 package com.example.kmprandomanime.ui.list
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -11,20 +14,23 @@ import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
+import com.example.kmprandomanime.preview.ComposePreviewData
 import com.example.kmprandomanime.ui.core.component.animegriditem.AnimeGridItem
 import com.example.kmprandomanime.ui.core.component.floatingaction.KMPRAFloatingActionButton
 import com.example.kmprandomanime.ui.core.component.loading.LoadingIndicator
 import com.example.kmprandomanime.ui.core.component.topbar.KMPRATopBar
 import com.example.kmprandomanime.ui.core.theme.KMPRATheme
 import com.example.kmprandomanime.ui.core.theme.icon.Shuffle
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -38,19 +44,7 @@ internal fun RandomAnimeListScreen(
     val navigation = viewModel.navigation
 
     HandleNavigation(navigation, onAnimeClicked)
-
-    Scaffold(
-        topBar = { RandomAnimeTopBar(state.screenTitle, actions.onClearAnimeList) },
-        floatingActionButton = { RandomAnimeFAB(actions.onGenerateRandomAnime) }
-    ) { innerPadding ->
-        Box(Modifier.padding(innerPadding)) {
-            RandomAnimeListScreenInternal(state, actions)
-
-            if (state.isLoading) {
-                LoadingIndicator()
-            }
-        }
-    }
+    RandomAnimeListScreenInternal(state, actions)
 }
 
 @Composable
@@ -89,33 +83,64 @@ private fun RandomAnimeFAB(onGenerate: () -> Unit) {
 }
 
 @Composable
-private fun RandomAnimeListScreenInternal(state: RandomAnimeListState, actions: RandomAnimeListActions) {
-    LazyVerticalGrid(
-        modifier = Modifier,
-        columns = GridCells.Adaptive(minSize = 96.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(
-            horizontal = 8.dp,
-            vertical = 8.dp
-        )
-    ) {
-        items(state.animeList.size) {
-            AnimeGridItem(
-                animeEntry = state.animeList[it],
-                onAnimeClick = actions.onAnimeClicked,
-            )
+private fun RandomAnimeListScreenInternal(
+    state: RandomAnimeListState,
+    actions: RandomAnimeListActions
+) {
+    Scaffold(
+        topBar = { RandomAnimeTopBar(state.screenTitle, actions.onClearAnimeList) },
+        floatingActionButton = { RandomAnimeFAB(actions.onGenerateRandomAnime) }
+    ) { innerPadding ->
+        Box(Modifier.padding(innerPadding)) {
+            LazyVerticalGrid(
+                modifier = Modifier,
+                columns = GridCells.Adaptive(minSize = 96.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(
+                    horizontal = 8.dp,
+                    vertical = 8.dp
+                )
+            ) {
+                items(state.animeList.size) {
+                    AnimeGridItem(
+                        animeEntry = state.animeList[it],
+                        onAnimeClick = actions.onAnimeClicked,
+                    )
+                }
+            }
+
+            if (state.isLoading) {
+                LoadingIndicator()
+            }
         }
     }
 }
 
 @Preview
 @Composable
-private fun RandomAnimeListScreen_Preview() {
+internal fun RandomAnimeListScreen_Preview() {
+    val animeList = listOf(
+        ComposePreviewData.animeEntry(),
+        ComposePreviewData.animeEntry(),
+        ComposePreviewData.animeEntry(),
+        ComposePreviewData.animeEntry(),
+        ComposePreviewData.animeEntry(),
+    )
+    val state = RandomAnimeListState(
+        screenTitle = "Random Anime List",
+        animeList = animeList,
+        isLoading = false
+    )
+
     KMPRATheme {
-        RandomAnimeListScreenInternal(
-            RandomAnimeListState(),
-            RandomAnimeListActions()
-        )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            RandomAnimeListScreenInternal(
+                state = state,
+                actions = RandomAnimeListActions()
+            )
+        }
     }
 }
