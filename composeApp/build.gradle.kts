@@ -104,6 +104,12 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.junit)
+    testImplementation(libs.room.testing)
+    testImplementation(libs.androidx.test.core.ktx)
+    testImplementation(libs.junit.ktx)
 
     // KSP support for Room Compiler.
     add("kspAndroid", libs.room.compiler)
