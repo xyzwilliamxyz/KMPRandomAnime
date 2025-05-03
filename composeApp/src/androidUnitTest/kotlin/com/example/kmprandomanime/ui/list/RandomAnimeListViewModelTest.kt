@@ -18,6 +18,7 @@ import kmprandomanime.composeapp.generated.resources.random_anime_list_title
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -85,7 +86,7 @@ class RandomAnimeListViewModelTest {
     }
 
     @Test
-    fun `test on anime clicked`() = runTest {
+    fun `test on anime clicked`() = runTest(UnconfinedTestDispatcher()) {
         val randomAnime = ComposePreviewData.animeEntry()
         val expectedNavigation = RandomAnimeListNavigation.ToAnimeDetails(randomAnime.id)
         val deferredNavigation = async {
