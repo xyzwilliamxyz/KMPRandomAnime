@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.example.kmprandomanime.data.local.entity.AnimeEntity
 
 @Dao
-interface AnimeDao {
+internal interface AnimeDao {
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertAnime(anime: AnimeEntity)
 

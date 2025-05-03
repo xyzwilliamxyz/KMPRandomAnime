@@ -3,7 +3,7 @@ package com.example.kmprandomanime.data.remote.mapper
 import com.example.kmprandomanime.data.remote.response.RandomAnimeResponse
 import com.example.kmprandomanime.domain.model.AnimeEntry
 
-fun RandomAnimeResponse.toAnimeEntry(): AnimeEntry {
+internal fun RandomAnimeResponse.toAnimeEntry(): AnimeEntry {
     return AnimeEntry(
         id = data?.malId ?: 0,
         title = data?.title.orEmpty(),

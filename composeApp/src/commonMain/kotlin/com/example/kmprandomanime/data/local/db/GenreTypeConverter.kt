@@ -2,7 +2,7 @@ package com.example.kmprandomanime.data.local.db
 
 import androidx.room.TypeConverter
 
-class GenreTypeConverter {
+internal class GenreTypeConverter {
     @TypeConverter
     fun fromGenreList(genres: List<String>): String {
         return genres.joinToString(separator = ",")

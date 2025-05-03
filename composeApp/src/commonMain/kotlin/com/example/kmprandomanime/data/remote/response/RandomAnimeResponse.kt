@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RandomAnimeResponse(
+internal data class RandomAnimeResponse(
 
     @SerialName("data")
     val data: Data? = null,

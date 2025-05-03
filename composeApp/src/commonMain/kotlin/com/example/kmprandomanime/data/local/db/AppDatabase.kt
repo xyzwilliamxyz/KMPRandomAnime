@@ -14,7 +14,7 @@ import kotlinx.coroutines.IO
 @TypeConverters(GenreTypeConverter::class)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun animeDao(): AnimeDao
+    internal abstract fun animeDao(): AnimeDao
 }
 
 // The Room compiler generates the `actual` implementations.

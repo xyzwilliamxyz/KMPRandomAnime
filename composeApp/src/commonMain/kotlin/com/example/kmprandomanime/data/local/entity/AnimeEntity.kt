@@ -7,7 +7,7 @@ import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 @Entity(tableName = "anime")
-data class AnimeEntity(
+internal data class AnimeEntity(
     @PrimaryKey(autoGenerate = false) val id: Int,
     val title: String,
     val imageUrl: String,
