@@ -23,17 +23,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import com.example.kmprandomanime.domain.model.AnimeEntry
 import com.example.kmprandomanime.preview.ComposePreviewData
+import com.example.kmprandomanime.ui.core.component.image.AnimeAsyncImage
 import com.example.kmprandomanime.ui.core.component.loading.LoadingIndicator
 import com.example.kmprandomanime.ui.core.component.topbar.KMPRATopBar
-import com.example.kmprandomanime.ui.core.extensions.debugPlaceholder
 import com.example.kmprandomanime.ui.core.theme.Dimension
 import com.example.kmprandomanime.ui.core.theme.KMPRATheme
 import com.example.kmprandomanime.ui.core.theme.icon.Star
@@ -121,16 +119,12 @@ private fun Title(title: String) {
 
 @Composable
 private fun AnimeImage(imageUrl: String) {
-    AsyncImage(
+    AnimeAsyncImage(
         modifier = Modifier
             .width(160.dp)
             .height(221.dp)
             .clip(RoundedCornerShape(Dimension.MATERIAL_BORDER)),
-        model = imageUrl,
-        placeholder = debugPlaceholder(),
-        error = debugPlaceholder(),
-        contentScale = ContentScale.FillBounds,
-        contentDescription = null,
+        imageUrl = imageUrl,
     )
 }
 

@@ -24,14 +24,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import com.example.kmprandomanime.domain.model.AnimeEntry
 import com.example.kmprandomanime.preview.ComposePreviewData
-import com.example.kmprandomanime.ui.core.extensions.debugPlaceholder
+import com.example.kmprandomanime.ui.core.component.image.AnimeAsyncImage
 import com.example.kmprandomanime.ui.core.theme.Dimension
 import com.example.kmprandomanime.ui.core.theme.KMPRATheme
 import com.example.kmprandomanime.ui.core.theme.icon.Star
@@ -53,7 +51,7 @@ internal fun AnimeGridItem(
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
     ) {
         Column {
-            AsyncImage(
+            AnimeAsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(160.dp)
@@ -61,11 +59,7 @@ internal fun AnimeGridItem(
                     .clickable {
                         onAnimeClick(animeEntry.id)
                     },
-                model = animeEntry.imageUrl,
-                contentScale = ContentScale.FillBounds,
-                error = debugPlaceholder(),
-                placeholder = debugPlaceholder(),
-                contentDescription = null,
+                imageUrl = animeEntry.imageUrl,
             )
 
             Text(
