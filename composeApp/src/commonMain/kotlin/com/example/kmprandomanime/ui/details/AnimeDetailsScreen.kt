@@ -251,7 +251,7 @@ private fun Summary(text: String) {
 }
 
 @Composable
-internal fun AnimeDetailsScreen_Preview() {
+internal fun AnimeDetailsScreen_Preview(darkTheme: Boolean = false) {
     val animeEntry = ComposePreviewData.animeEntry()
     val state = AnimeDetailsState(
         screenTitle = "Anime Details",
@@ -259,7 +259,7 @@ internal fun AnimeDetailsScreen_Preview() {
         isLoading = false,
     )
 
-    KMPRATheme {
+    KMPRATheme(darkTheme) {
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {

@@ -120,7 +120,7 @@ private fun RandomAnimeListScreenInternal(
 
 @Preview
 @Composable
-internal fun RandomAnimeListScreen_Preview() {
+internal fun RandomAnimeListScreen_Preview(darkTheme: Boolean = false) {
     val animeList = listOf(
         ComposePreviewData.animeEntry(),
         ComposePreviewData.animeEntry(),
@@ -134,7 +134,7 @@ internal fun RandomAnimeListScreen_Preview() {
         isLoading = false,
     )
 
-    KMPRATheme {
+    KMPRATheme(darkTheme) {
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {

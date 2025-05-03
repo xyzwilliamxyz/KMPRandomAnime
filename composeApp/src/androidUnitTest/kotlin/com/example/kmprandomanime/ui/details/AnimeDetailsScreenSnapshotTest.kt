@@ -14,10 +14,19 @@ class AnimeDetailsScreenSnapshotTest {
     )
 
     @Test
-    fun `test AnimeDetailsScreen`() {
+    fun `test AnimeDetailsScreen with light theme`() {
         paparazzi.snapshot {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 AnimeDetailsScreen_Preview()
+            }
+        }
+    }
+
+    @Test
+    fun `test AnimeDetailsScreen with dark theme`() {
+        paparazzi.snapshot {
+            CompositionLocalProvider(LocalInspectionMode provides true) {
+                AnimeDetailsScreen_Preview(darkTheme = true)
             }
         }
     }

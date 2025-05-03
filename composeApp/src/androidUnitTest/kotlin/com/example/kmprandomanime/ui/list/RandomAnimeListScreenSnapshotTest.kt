@@ -14,10 +14,19 @@ class RandomAnimeListScreenSnapshotTest {
     )
 
     @Test
-    fun `test RandomAnimeListScreen`() {
+    fun `test RandomAnimeListScreen with light theme`() {
         paparazzi.snapshot {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 RandomAnimeListScreen_Preview()
+            }
+        }
+    }
+
+    @Test
+    fun `test RandomAnimeListScreen with dark theme`() {
+        paparazzi.snapshot {
+            CompositionLocalProvider(LocalInspectionMode provides true) {
+                RandomAnimeListScreen_Preview(darkTheme = true)
             }
         }
     }
