@@ -106,10 +106,9 @@ dependencies {
     debugImplementation(compose.uiTooling)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.junit)
     testImplementation(libs.room.testing)
     testImplementation(libs.androidx.test.core.ktx)
-    testImplementation(libs.junit.ktx)
+    testImplementation(libs.robolectric)
 
     // KSP support for Room Compiler.
     add("kspAndroid", libs.room.compiler)
@@ -157,7 +156,9 @@ afterEvaluate {
     tasks.withType(Test::class).configureEach {
         systemProperty(
             "paparazzi.snapshot.dir",
-            project.layout.projectDirectory.dir("src/androidUnitTest/snapshots").toString()
+            project.layout.projectDirectory
+                .dir("src/androidUnitTest/snapshots")
+                .toString(),
         )
     }
 }

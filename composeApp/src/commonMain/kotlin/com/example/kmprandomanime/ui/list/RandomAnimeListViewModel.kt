@@ -12,6 +12,7 @@ import com.example.kmprandomanime.domain.model.AnimeEntry
 import com.example.kmprandomanime.getPlatform
 import kmprandomanime.composeapp.generated.resources.Res
 import kmprandomanime.composeapp.generated.resources.random_anime_list_title
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -29,7 +30,11 @@ internal class RandomAnimeListViewModel(
     private val _state = MutableStateFlow(RandomAnimeListState())
     val state = _state.asStateFlow()
 
-    private val _navigation = MutableSharedFlow<RandomAnimeListNavigation>()
+    private val _navigation = MutableSharedFlow<RandomAnimeListNavigation>(
+        replay = 1,
+        extraBufferCapacity = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
+    )
     val navigation = _navigation.asSharedFlow()
 
     val actions = RandomAnimeListActions(
@@ -84,7 +89,7 @@ internal class RandomAnimeListViewModel(
     }
 
     private fun onAnimeClicked(animeId: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher.io()) {
             _navigation.emit(RandomAnimeListNavigation.ToAnimeDetails(animeId))
         }
     }

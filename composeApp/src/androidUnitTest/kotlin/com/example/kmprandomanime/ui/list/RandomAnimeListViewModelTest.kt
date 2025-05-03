@@ -1,6 +1,5 @@
 package com.example.kmprandomanime.ui.list
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.kmprandomanime.core.CoroutineDispatcherProvider
 import com.example.kmprandomanime.core.StringProvider
 import com.example.kmprandomanime.domain.interactor.ClearAllCachedAnimeInteractor
@@ -19,13 +18,10 @@ import kmprandomanime.composeapp.generated.resources.random_anime_list_title
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
 @OptIn(ExperimentalCoroutinesApi::class)
 class RandomAnimeListViewModelTest {
     private val getRandomAnimeInteractor: GetRandomAnimeInteractor = mockk()
@@ -89,7 +85,7 @@ class RandomAnimeListViewModelTest {
     }
 
     @Test
-    fun `test on anime clicked`() = runTest(UnconfinedTestDispatcher()) {
+    fun `test on anime clicked`() = runTest {
         val randomAnime = ComposePreviewData.animeEntry()
         val expectedNavigation = RandomAnimeListNavigation.ToAnimeDetails(randomAnime.id)
         val deferredNavigation = async {

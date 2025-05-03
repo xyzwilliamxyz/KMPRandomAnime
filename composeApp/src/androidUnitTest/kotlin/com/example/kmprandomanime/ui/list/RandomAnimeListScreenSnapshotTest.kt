@@ -14,7 +14,7 @@ class RandomAnimeListScreenSnapshotTest {
     )
 
     @Test
-    fun testMyComposable() {
+    fun `test RandomAnimeListScreen`() {
         paparazzi.snapshot {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 RandomAnimeListScreen_Preview()
