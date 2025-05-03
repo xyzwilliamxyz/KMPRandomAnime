@@ -14,10 +14,13 @@ import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -88,9 +91,16 @@ private fun RandomAnimeListScreenInternal(
     state: RandomAnimeListState,
     actions: RandomAnimeListActions,
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(state.error) {
+        state.error?.let { snackbarHostState.showSnackbar(it) }
+    }
+
     Scaffold(
         topBar = { RandomAnimeTopBar(state.screenTitle, actions.onClearAnimeList) },
         floatingActionButton = { RandomAnimeFAB(actions.onGenerateRandomAnime) },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { innerPadding ->
         Box(Modifier.padding(innerPadding)) {
             LazyVerticalGrid(

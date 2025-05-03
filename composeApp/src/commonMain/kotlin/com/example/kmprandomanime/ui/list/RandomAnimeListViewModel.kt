@@ -65,13 +65,20 @@ internal class RandomAnimeListViewModel(
     private fun generateRandomAnime() {
         _state.value = _state.value.copy(isLoading = true)
         viewModelScope.launch(dispatcher.io()) {
-            val animeEntry = getRandomAnimeInteractor()
-            saveAnimeToCacheInteractor(animeEntry)
-            _state.value = _state.value.copy(
-                isLoading = false,
-                error = null,
-                animeList = _state.value.animeList.toMutableList().apply { add(animeEntry) },
-            )
+            runCatching {
+                val animeEntry = getRandomAnimeInteractor()
+                saveAnimeToCacheInteractor(animeEntry)
+                _state.value = _state.value.copy(
+                    isLoading = false,
+                    error = null,
+                    animeList = _state.value.animeList.toMutableList().apply { add(animeEntry) },
+                )
+            }.onFailure { ex ->
+                _state.value = _state.value.copy(
+                    isLoading = false,
+                    error = ex.message,
+                )
+            }
         }
     }
 
