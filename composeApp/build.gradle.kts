@@ -46,7 +46,6 @@ kotlin {
             implementation(libs.ktor.content.negotiation)
             implementation(libs.ktor.json)
             implementation(libs.koin.core)
-            implementation(libs.koin.androidx.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.androidx.navigation.compose)
             implementation(libs.coil.compose)
