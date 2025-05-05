@@ -6,7 +6,7 @@ A showcase project built with **Jetpack Compose Multiplatform**, demonstrating m
 Take a look at a quick demo showcasing the UI in action on both platforms:
 | Android | iOS |
 |---------|-------|
-| <video src="https://github.com/user-attachments/assets/30f1de7c-e423-4ad1-b6ad-1c3b2b49e916" /> | <video src="https://github.com/user-attachments/assets/9016767a-aebb-4649-ba46-678b5653dbc3" /> |
+| <video src="https://github.com/user-attachments/assets/22b4d2e0-8193-4f8b-9c4c-b5a0f1e38e5c" /> | <video src="https://github.com/user-attachments/assets/08b021c9-86de-4674-81cc-f3ed7843f717" /> |
 
 ## 🚀 Features
 - Cross-platform UI built with Jetpack Compose Multiplatform
