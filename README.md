@@ -1,6 +1,6 @@
 # 🎲 Compose Multiplatform Random Anime Generator
 
-A showcase project built with **Jetpack Compose Multiplatform**, demonstrating modern mobile development patterns and tooling across Android and iOS. It fetches data from the [Jikan API](https://jikan.moe), which provides access to anime information from MyAnimeList.
+A showcase project built with **Compose Multiplatform**, demonstrating modern mobile development patterns and tooling across Android and iOS. It fetches data from the [Jikan API](https://jikan.moe), which provides access to anime information from MyAnimeList.
 
 ## 🎥 Demo Video
 Take a look at a quick demo showcasing the UI in action on both platforms:
